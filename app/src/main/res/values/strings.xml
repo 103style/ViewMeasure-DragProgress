@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">ViewMeasure</string>
+    <string name="action_settings">Settings</string>
+    <string name="show">显示任务进度</string>
+    <string name="hint">输入任务进度(0到100)</string>
+    <string name="update">调整任务进度</string>
+    <string name="update_here">调整任务进度，横向滑动可以调整进度</string>
+    <string name="finished">当前完成进度：</string>
+    <string name="done_precent">0%</string>
+</resources>
