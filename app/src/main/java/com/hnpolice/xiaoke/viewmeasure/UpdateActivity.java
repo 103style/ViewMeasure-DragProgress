@@ -28,7 +28,7 @@ public class UpdateActivity extends AppCompatActivity {
     @InjectView(R.id.full)
     LinearLayout full;
 
-    private int x1, x2, dx;
+    private int x0,x1, x2, dx;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,19 +40,40 @@ public class UpdateActivity extends AppCompatActivity {
         progesss.setProgress(Integer.parseInt(s));
 
 
+//        progesss.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                int w = getWindowManager().getDefaultDisplay().getWidth();
+//                switch (event.getAction()) {
+//                    case MotionEvent.ACTION_DOWN:
+//                        x0 = (int) event.getRawX();
+//                        progesss.setProgress(100 * x0 / w);
+//                        setPos();
+//                        break;
+//                    case MotionEvent.ACTION_MOVE:
+//                        break;
+//                    case MotionEvent.ACTION_UP:
+//                        break;
+//                }
+//                return true;
+//            }
+//        });
+
         full.setOnTouchListener(new View.OnTouchListener() {
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+                int w = getWindowManager().getDefaultDisplay().getWidth();
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         x1 = (int) event.getRawX();
+                        progesss.setProgress(100 * x1 / w);
+                        setPos();
                         break;
                     case MotionEvent.ACTION_MOVE:
                         x2 = (int) event.getRawX();
                         dx = x2 - x1;
-                        int w = getWindowManager().getDefaultDisplay().getWidth();
-                        if (Math.abs(dx) > w / 100) {
+                        if (Math.abs(dx) > w / 100) { //改变条件 调整进度改变速度
                             x1 = x2; // 去掉已经用掉的距离， 去掉这句 运行看看会出现效果
                             progesss.setProgress(progesss.getProgress() + dx * 100 / w);
                             setPos();
@@ -84,10 +105,10 @@ public class UpdateActivity extends AppCompatActivity {
         ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) progesssValue.getLayoutParams();
         int pro = progesss.getProgress();
         int tW = progesssValue.getWidth();
-        if (w * pro / 100 < tW * 0.7) {
+        if (w * pro / 100 + tW * 0.3 > w) {
+            params.leftMargin = (int) (w - tW * 1.1);
+        } else if (w * pro / 100 < tW * 0.7) {
             params.leftMargin = 0;
-        } else if (w * pro / 100 + tW * 0.3 > w) {
-            params.leftMargin = w - tW;
         } else {
             params.leftMargin = (int) (w * pro / 100 - tW * 0.7);
         }

@@ -26,7 +26,7 @@
         android:paddingTop="2dp"
         android:textColor="@android:color/white"
         android:textSize="12sp"
-        tools:text="@string/done_precent" />
+        android:text="@string/done_precent" />
 
 
     <ProgressBar
